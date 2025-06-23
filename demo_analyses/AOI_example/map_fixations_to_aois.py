@@ -109,23 +109,23 @@ for i, row in df_fixations.iterrows():
 
         trial_fixation_no += 1
 
-    t1 = time.time()
-    fixations_left = nr_fixations - fix_nr
-    end = time.time()
-    duration_processing = ((end - start) / fix_nr)
-    duration_left = fixations_left * duration_processing
+        t1 = time.time()
+        fixations_left = nr_fixations - fix_nr
+        end = time.time()
+        duration_processing = ((end - start) / fix_nr)
+        duration_left = fixations_left * duration_processing
 
-    td = timedelta(seconds=duration_left)
+        td = timedelta(seconds=duration_left)
 
-    print('Fixation number: ', fix_nr)
-    print('Fixations left: ', fixations_left)
-    print()
-    print('Participant: ', participant)
-    print('Trial: ', trial)
-    print('Duration per fixation: ', duration_processing)
-    print('Estimated time left: ', humanize.naturaldelta(td))
-    print()
-    print()
+        print('Fixation number: ', fix_nr)
+        print('Fixations left: ', fixations_left)
+        print()
+        print('Participant: ', participant)
+        print('Trial: ', trial)
+        print('Duration per fixation: ', duration_processing)
+        print('Estimated time left: ', humanize.naturaldelta(td))
+        print()
+        print()
 
 # Save AOI data as csv
 df = pd.DataFrame(aoi_hits, columns=['participant', 'trial', 'fixation_number',
@@ -133,11 +133,10 @@ df = pd.DataFrame(aoi_hits, columns=['participant', 'trial', 'fixation_number',
                                 'dur', 'AOI_name'])
 df.to_csv('fixation_aoi_hits.csv', index=False)
 
+final = time.time()
+total_time = final - start
+td_total = timedelta(seconds=total_time)
 
-
-
-
-
-
+print('Total duration: ', humanize.naturaldelta(td_total))
 
 
