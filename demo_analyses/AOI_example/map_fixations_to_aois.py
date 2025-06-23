@@ -9,6 +9,9 @@ import pandas as pd
 from pathlib import Path
 import matplotlib.pyplot as plt
 import os
+import time
+import humanize
+from datetime import timedelta
 
 # Set this to True to avoid memory issues if using many AOI images
 many_aois = False
@@ -50,12 +53,18 @@ for p in aoi_folder.rglob("*.png"):
 # %% Map fixations to AOIs
 aoi_hits = []
 
+nr_fixations = len(df_fixations)
+start = time.time()
+
 # For each fixation
 trial_old = 'dummy_trial_name'
 for i, row in df_fixations.iterrows():
+    fix_nr = i + 1
+    t0 = time.time()
 
     trial = row.trial
-    print(trial)
+
+
     if trial in image_aois:
 
         if trial != trial_old:
@@ -99,6 +108,24 @@ for i, row in df_fixations.iterrows():
             aoi_hits.append([participant, trial, trial_fixation_no, x, y, dur, 'WS']) # WS (white space) for miss
 
         trial_fixation_no += 1
+
+    t1 = time.time()
+    fixations_left = nr_fixations - fix_nr
+    end = time.time()
+    duration_processing = ((end - start) / fix_nr)
+    duration_left = fixations_left * duration_processing
+
+    td = timedelta(seconds=duration_left)
+
+    print('Fixation number: ', fix_nr)
+    print('Fixations left: ', fixations_left)
+    print()
+    print('Participant: ', participant)
+    print('Trial: ', trial)
+    print('Duration per fixation: ', duration_processing)
+    print('Estimated time left: ', humanize.naturaldelta(td))
+    print()
+    print()
 
 # Save AOI data as csv
 df = pd.DataFrame(aoi_hits, columns=['participant', 'trial', 'fixation_number',
