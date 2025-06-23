@@ -21,7 +21,7 @@ df_fixations = pd.read_csv('allfixations.txt', sep='\t')
 image_aois = {}
 
 aoi_folder = Path.cwd() / 'AOIs'
-for p in aoi_folder.rglob("*"):
+for p in aoi_folder.rglob("*.png"):
     print(p)
     if p.is_file():
 
