@@ -1,5 +1,7 @@
 The files in this folder are resources to help users access data and perform common data processing tasks. It is assumed that recorded data are located in the `data` folder.
 
+To run all steps below in one go, run `run_analysis.py` (`python run_analysis.py` from this folder). Each step runs as a separate process, exactly as if the script was started by hand, so the settings stay in the scripts themselves. With `RUN_STEPS` at the top of `run_analysis.py` single steps can be turned off (e.g. the slow gaze videos, which run as the last step). A step whose script is not available (e.g. an old version) is skipped; a step whose Python packages or input are missing is reported and stops the run (`STOP_ON_ERROR`). Fixations are mapped to the AOIs in `AOI_example/AOIs` (output in the folder `aoi`), and an existing `output/allfixations.txt` is moved to `output/previous/` before fixation detection, because `detect_fixations.py` does not overwrite it.
+
 To extract trial data, compute data quality, and classify fixation, perform the following steps (in this order):
 * Extract trial data (run `extract_trial_data.py`). This will create a folder 'trials' with data organized by participants and trials.
 * Compute data quality (run `compute_data_quality.py`). Will output two csv-files with information about data quality during the validation as well as data loss values for each trial (found in the 'data_quality' folder).
